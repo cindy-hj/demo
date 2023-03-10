@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.MemberMapper">
+	<!-- 아이디 중복확인 -->
+	<select id="getId" parameterType="com.example.DTO.MemberDto" resultType="java.lang.Integer">
+		select ifnull(count(*),0) from MEMBERS where ID=#{id}
+	</select>
+	<!-- 회원 가입 -->
+	<insert id="addMember" parameterType="com.example.DTO.MemberDto">
+		insert into MEMBERS(ID, PWD, NAME, EMAIL, AUTH)
+		values(#{id},#{pwd},#{name},#{email},3)
+	</insert>
+	<!-- 로그인 -->
+	<select id="login" parameterType="com.example.DTO.MemberDto" resultType="com.example.DTO.MemberDto">
+		select ID, NAME, EMAIL, AUTH from MEMBERS
+		where ID=#{id} and PWD=#{pwd}		
+	</select>
+</mapper>
